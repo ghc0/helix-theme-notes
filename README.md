@@ -49,7 +49,7 @@ This theme is for a e ink tablet.
         # With bold, too dim, keep it for nothing.
     # italic
         # Without italic, for PLAIN TEXT.
-        # With italic, for dynamic things like VARIABLES from COMMENTS.
+        # With italic, for  KEYWORDS.
     # reversed
         # Without reversed, for PLAIN TEXT.
         # With reversed? I prefer to manually define its fg/bg colors.
@@ -92,7 +92,9 @@ This theme is for a e ink tablet.
 "info" = { fg = "white", bg = "light-gray", modifiers = ["bold"] }
 "hint" = { fg = "white", bg = "light-gray", modifiers = ["bold", "italic"] }
 
-"variable" = { modifiers = [ "italic"] }
+"keyword" = { modifiers = ["italic"] }
+"type" = { underline = { style = "line" }, modifiers = ["bold"] }
 "comment" = { fg = "gray", modifiers = ["italic"] }
-"keyword.control.return" = { fg = "white", bg = "light-gray", modifiers = ["bold"] }
+"keyword.control.return" = { fg = "white", bg = "light-gray" }
+
 ```
