@@ -1,77 +1,103 @@
-# helix-theme-notes
+This theme is for a e ink tablet.
 
-notes of how to build helix theme
+3. format required: {}, or [], or "", they diff
+4. file name suffix effects whether the theme works.
 
-It contains 2 structures: 
-I. what&where
-II. effects
-
-If you care dependencies in contents(terms&pictures), pls **read from start to end**. Or if you know what you are doing, just **Ctrl-s** or **read anywhere**.
-
-time: 20230411-?
-
-## I. What&where?
-
-### I.a obligingness
-
-> I don't know why but this one is necessary, if not, error.
-
-#### I.a.1 `"ui.selection" = { fg = "red", bg = "green" }`
-
-![image](https://user-images.githubusercontent.com/130418928/231174692-54f85b18-a355-4950-8510-a58f7878f7a7.png)
-
-1. Selection is diff from a cursors[?], but it contains cursors[?]. So if you press `e`, it usually `red` lots of chars of text.
-2. priority when selection meet cursor[?] ?
-3. will it affect underline?
-4. what if combine the effects to create new effect!
-5. foreground, fg, where is it?
-6. background, bg, where is it?
-
-### I.b optional
-
-#### I.b.1 `"attribute" = { fg = "blue", modifiers = ["bold"] }`
-
-![image](https://user-images.githubusercontent.com/130418928/231178700-40aacc64-fbc5-4758-9237-679e8f432713.png)
-
-1. `attribute` only contains key, doesn't contains `=` or `value`
-2. `attribute` contains class attributes and HTML attributes, where is `class attribute`? Well, rust doesn't contain class...
-3. "bold": diff between "l" in "html" and "l" in "class"
-4. Don't forget add `[]` after `modifiers = `. Though `modifiers` contains only one element, its general logic is to contain a `set`, accidently, in this case, the `set` only contains one element.
-5. If name of file is not end with `.html`, the `attribute` won't be painted like what you configed.
-
-#### I.b.2 `"type" = { fg = "red", bg = "yellow" }`
+`"type" = { fg = "red", bg = "yellow" }`
 
 1. primitives
-![image](https://user-images.githubusercontent.com/130418928/231193203-98ca59f5-3d2d-4fa0-bca7-df857807c430.png)
-2. other complex type, different positions
+2. other complex type, in different positions
     1. ![image](https://user-images.githubusercontent.com/130418928/231193939-dd662843-ebd7-4801-9c84-5123e376bfbc.png)
-    2. impl ![image](https://user-images.githubusercontent.com/130418928/231194202-f8c745ac-6083-4fb5-83b6-556d3882945d.png)
-    3. enum ![image](https://user-images.githubusercontent.com/130418928/231193630-20d49b98-58f4-455f-a924-576eac496a73.png)
-    4. struct ![image](https://user-images.githubusercontent.com/130418928/231193445-7f526666-bdb9-42ec-8623-a9e5a8d45599.png)
-    5. trait, return type of fn, parameter type...
-3. sometimes its type part of value do matters, sometimes its personal detail part of value do matters. Type, is diff-lvl of abstraction. When do we need to `bold` it? or paint it in other way? or just make it different from its name? Since rust put the type after the name, it is the name instead the type need to be bold.
+    2. impl, enum, struct, trait, return type of fn, parameter type...
+3. In different positions, under different willing, maybe its n-lvl common part(type, according to variable) need to be bold or normal or only indicate its difference(when? with name? with other environment?), same on its variable name.
 
-`"ui.background" = { fg = "red", bg = "green" }`
+1. helix theme is not finished or enough.
+2. bold the type, or darker bg the type(easy to mix with cursor, deny)
+3. italic => variable, changeable, free
+5. modifiers
+    5. "underline", types.
+    7. NOT available on e ink tablet
+        6. "dim", use gray/light-gray instead.
+        9. "slow_blink", only works on myPC
+        10. "rapid_blink"
+        12. "hidden"
+    13. "crossed_out",only for
+12. underline
+    1. syntax: is with `{}`
+    2. color, NOT work.
+    3. style, all NOT work.
+13. color, only support base64 in my eink pad. pallete failed. e.g. #982332
+    1. green, like dim, if bg==black, its dim is more clear.
+    2. red, blue... works similar, not good as gray. if wanna dim, choose gray. light-red, light-gray... are trivial diff.
+    3. let those color to be used as bg.
 
-1. What is `"ui.background"`
-2. What is its `fg` and `bg`
+```
+# Author : ghc0 publj@outlook.com
 
-![image](https://user-images.githubusercontent.com/130418928/231032263-cde307fa-4bb7-4cba-975c-4a06b0b5c473.png)
+# underline
+    # Most of its colors or styles are unavailable on my e ink tablet, there fore only left 1 simple underline.
+    # Without underline, for PLAIN TEXT.
+    # With underline, for TYPES.
+# modifiers
+    # crossed_out
+        # Without crossed_out, for PLAIN TEXT.
+        # With crossed_out, for DIAGNOSTIC, multi-CURSORS.
+    # bold
+        # Without bold, for PLAIN TEXT.
+        # With bold, too dim, to distinguish VARIABLES from COMMENTS.
+    # italic
+        # Without italic, for PLAIN TEXT.
+        # With italic, for dynamic things like VARIABLES from COMMENTS.
+    # reversed
+        # Without reversed, for PLAIN TEXT.
+        # With reversed? I prefer to mannually define its fg/bg colors.
+# fg/bg with color
+    # on my e ink tablet, only 16 colors are supported, and most of them acts the same, therefore I choose main 4 colors.
+    # black
+        # With black
+            # With fg, for PLAIN TEXT.
+            # With bg, for CURSOR.
+        # Without black
+    # white
+        # With white
+            # With fg, for CURSOR.
+            # With bg, for PLAIN TEXT.
+        # Without white
+    # gray
+        # With gray
+            # With fg, is similar effect as BOLD on my e ink tablet, keep it for nothing.
+            # With bg, for SELECTION.
+        # Without gray
+    # light-gray
+        # With light-gray
+            # With fg, for COMMENTS.
+            # With bg, for ???, is easily confused with SELECTIONS and CURSORS, keep it for nothing if CURSORS are in working.
+        # Without light-gray
 
-### 2. `"attribute" = { fg = "red", bg = "green", modifiers = ["bold", "italic"] }`
 
-1. the range of attribute
-2. what's modifiers_bold
-3. what's modifiers_italic
+"ui.selection" = { fg = "white", bg = "gray" }
+    # use reversed, so it is dynamic calculate according to original color, including crossed_out and underline
+"ui.cursor.primary" = { fg = "white", bg = "black" }
+    # underline is unclean, restrict its amount
+"ui.cursor" = { fg = "white", bg = "black", modifiers = ["crossed_out"] }
+"ui.cursor.match" = { modifiers = ["bold", "crossed_out"] }
+"ui.background" = { fg = "black", bg = "white" }
 
-![image](https://user-images.githubusercontent.com/130418928/231157197-9f296ee0-efad-484b-bb94-63a0b35c5d90.png)
+# cursor??? { underline = { style = "line"} } 
 
-## 2. Effects
+"comment" = { fg = "light-gray", modifiers = ["italic"] }
 
-### 1. modifiers = ["slow_blink"]
+"warning" = { fg = "white", bg = "gray", modifiers = ["bold"], underline = { style = "line" } }
+"error" = { fg = "white", bg = "black", modifiers = ["bold"] }
+"info" = { fg = "white", bg = "light-gray", modifiers = ["bold"] }
+"hint" = { fg = "white", bg = "light-gray", modifiers = ["bold", "italic"] }
 
-1. unavailable on eink pad
-2. available on PC
-    1. works on only text(not contain underline)
+"type" = { underline = { style = "line" } }
+"variable" = { modifiers = ["italic", "bold"] }
+    # more dynamic
+"ui.linenr.selected" = { fg = "white", bg = "light-gray", underline = { style = "line" } }
+"ui.statusline" = { modifiers = ["reversed"] }
 
-![tmp](https://user-images.githubusercontent.com/130418928/231166337-590b8985-e7c0-4e11-b20a-499570176e62.gif)
+"diagnostic" = { fg = "white", bg = "light-gray", modifiers = ["crossed_out"]}
+
+```
