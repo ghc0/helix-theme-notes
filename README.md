@@ -35,22 +35,24 @@ This theme is for a e ink tablet.
 # Author : ghc0 publj@outlook.com
 
 # underline
-    # Most of its colors or styles are unavailable on my e ink tablet, there fore only left 1 simple underline.
+    # meta
+        # Most of its colors or styles are unavailable on my e ink tablet, there fore only left 1 simple underline.
+        # underline is unclean, restrict its amount.
     # Without underline, for PLAIN TEXT.
-    # With underline, for TYPES.
+    # With underline, for rare RETURN.
 # modifiers
     # crossed_out
         # Without crossed_out, for PLAIN TEXT.
         # With crossed_out, for DIAGNOSTIC, multi-CURSORS.
     # bold
         # Without bold, for PLAIN TEXT.
-        # With bold, too dim, to distinguish VARIABLES from COMMENTS.
+        # With bold, too dim, keep it for nothing.
     # italic
         # Without italic, for PLAIN TEXT.
         # With italic, for dynamic things like VARIABLES from COMMENTS.
     # reversed
         # Without reversed, for PLAIN TEXT.
-        # With reversed? I prefer to mannually define its fg/bg colors.
+        # With reversed? I prefer to manually define its fg/bg colors.
 # fg/bg with color
     # on my e ink tablet, only 16 colors are supported, and most of them acts the same, therefore I choose main 4 colors.
     # black
@@ -76,28 +78,21 @@ This theme is for a e ink tablet.
 
 
 "ui.selection" = { fg = "white", bg = "gray" }
-    # use reversed, so it is dynamic calculate according to original color, including crossed_out and underline
 "ui.cursor.primary" = { fg = "white", bg = "black" }
-    # underline is unclean, restrict its amount
 "ui.cursor" = { fg = "white", bg = "black", modifiers = ["crossed_out"] }
 "ui.cursor.match" = { modifiers = ["bold", "crossed_out"] }
+
 "ui.background" = { fg = "black", bg = "white" }
+"ui.linenr.selected" = { fg = "white", bg = "light-gray", underline = { style = "line" } }
+"ui.statusline" = { fg = "white", bg = "black" }
 
-# cursor??? { underline = { style = "line"} } 
-
-"comment" = { fg = "light-gray", modifiers = ["italic"] }
-
-"warning" = { fg = "white", bg = "gray", modifiers = ["bold"], underline = { style = "line" } }
+"diagnostic" = { fg = "white", bg = "light-gray", modifiers = ["crossed_out"] }
+"warning" = { fg = "white", bg = "gray", modifiers = ["bold"] }
 "error" = { fg = "white", bg = "black", modifiers = ["bold"] }
 "info" = { fg = "white", bg = "light-gray", modifiers = ["bold"] }
 "hint" = { fg = "white", bg = "light-gray", modifiers = ["bold", "italic"] }
 
-"type" = { underline = { style = "line" } }
-"variable" = { modifiers = ["italic", "bold"] }
-    # more dynamic
-"ui.linenr.selected" = { fg = "white", bg = "light-gray", underline = { style = "line" } }
-"ui.statusline" = { modifiers = ["reversed"] }
-
-"diagnostic" = { fg = "white", bg = "light-gray", modifiers = ["crossed_out"]}
-
+"variable" = { modifiers = [ "italic"] }
+"comment" = { fg = "gray", modifiers = ["italic"] }
+"keyword.control.return" = { fg = "white", bg = "light-gray", modifiers = ["bold"] }
 ```
